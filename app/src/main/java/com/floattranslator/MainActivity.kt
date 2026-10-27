@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                 1001
             )
         }
-        findViewById<Button>(R.id.btnAccessibilityPermission).setOnClickListener { startActivity(Intent(Settings.ACTION_ACCESS_SETTINGS)) }
+        findViewById<Button>(R.id.btnAccessibilityPermission).setOnClickListener { startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)) }
         Translation.getClient(TranslatorOptions.Builder().setSourceLanguage(TranslateLanguage.ENGLISH).setTargetLanguage(TranslateLanguage.CHINESE).build()).downloadModelIfNeeded()
         .addOnSuccessListener {
             Translation.getClient(TranslatorOptions.Builder().setSourceLanguage(TranslateLanguage.CHINESE).setTargetLanguage(TranslateLanguage.ENGLISH).build()).downloadModelIfNeeded()
