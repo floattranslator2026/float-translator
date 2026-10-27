@@ -37,7 +37,7 @@
             android:name=".FloatingService"
             android:exported="false"
             android:foregroundServiceType="mediaProjection" />
-        <service android:name=".ReadingAccessibilityService" android:exported="false" android:permission="android.permission.BIN_ACCESSIBILITY_SERVICE">
+        <service android:name=".ReadingAccessibilityService" android:exported="false" android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
