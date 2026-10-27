@@ -7,7 +7,6 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
-  workflows: write
 jobs:
   extract:
     runs-on: ubuntu-latest
@@ -35,6 +34,12 @@ jobs:
                   shutil.copytree(item, dest, dirs_exist_ok=True)
               else:
                   shutil.copy2(item, dest)
+          android = pathlib.Path(".github/workflows/android.yml")
+          if android.exists():
+              print("=== android.yml start ===")
+              print(android.read_text())
+              print("=== android.yml end ===")
+              android.unlink()
           shutil.rmtree(out)
           zip_path.unlink()
           PY
