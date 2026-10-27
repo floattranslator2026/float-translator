@@ -256,16 +256,14 @@ class FloatingService : Service() {
                 tvStatus.text = "截屏失败：${e.message}"
                 releaseCapture()
             }
-        }, 600)
+        }, 1200)
     }
 
     private fun releaseCapture() {
         runCatching { virtualDisplay?.release() }
         runCatching { imageReader?.close() }
-        runCatching { mediaProjection?.stop() }
         virtualDisplay = null
         imageReader = null
-        mediaProjection = null
     }
 
     private fun ocrAndTranslate(bitmap: Bitmap) {
@@ -305,6 +303,8 @@ class FloatingService : Service() {
     override fun onDestroy() {
         subtitleRecognizer?.stop()
         releaseCapture()
+        runCatching { mediaProjection?.stop() }
+        mediaProjection = null
         runCatching { windowManager.removeView(root) }
         TranslatorEngine.close()
         super.onDestroy()
