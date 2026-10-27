@@ -4,8 +4,10 @@ on:
     branches: [main]
     paths:
       - float-translator-google-first.zip
+  workflow_dispatch:
 permissions:
   contents: write
+  workflows: write
 jobs:
   extract:
     runs-on: ubuntu-latest
