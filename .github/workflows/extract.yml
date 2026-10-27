@@ -1,0 +1,47 @@
+name: Extract source zip
+on:
+  push:
+    branches: [main]
+    paths:
+      - float-translator-google-first.zip
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract zip to repository root
+        run: |
+          python3 - <<'PY'
+          import pathlib, shutil, zipfile
+          zip_path = pathlib.Path("float-translator-google-first.zip")
+          if not zip_path.exists():
+              print("zip not found, nothing to do")
+              raise SystemExit(0)
+          out = pathlib.Path("extracted")
+          if out.exists():
+              shutil.rmtree(out)
+          with zipfile.ZipFile(zip_path) as z:
+              z.extractall(out)
+          entries = list(out.iterdir())
+          src = entries[0] if len(entries) == 1 and entries[0].is_dir() else out
+          print(f"copying from {src}")
+          for item in src.iterdir():
+              dest = pathlib.Path(item.name)
+              if item.is_dir():
+                  shutil.copytree(item, dest, dirs_exist_ok=True)
+              else:
+                  shutil.copy2(item, dest)
+          shutil.rmtree(out)
+          zip_path.unlink()
+          PY
+          ls -la
+      - name: Commit extracted files
+        run: |
+          git config user.name "floattranslator2026"
+          git config user.email "1558255062@qq.com"
+          git add -A
+          git status --short
+          git diff --cached --quiet || git commit -m "Upload float-translator source"
+          git push
