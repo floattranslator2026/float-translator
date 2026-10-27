@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.FloatTranslator" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">#7C4DFF</item>
+        <item name="colorPrimaryVariant">#5E35B1</item>
+        <item name="colorAccent">#FFEB3B</item>
+    </style>
+</resources>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="悬浮窗屏幕翻译"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="中英互译，自动判断方向。屏幕翻译 + 图片翻译 + 英文演讲实时中文字幕，全部本机运行，无需 API Key。" />
+
+    <Button
+        android:id="@+id/btnOverlayPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="1. 授权悬浮窗" />
+
+    <Button
+        android:id="@+id/btnProjectionPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2. 授权录屏（屏幕翻译用）" />
+
+    <Button
+        android:id="@+id/btnAudioPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="3. 授权麦克风（语音字幕用）" />
+
+    <Button
+        android:id="@+id/btnStartFloat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="启动悬浮窗" />
+
+    <Button
+        android:id="@+id/btnStopFloat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="关闭悬浮窗" />
+
+    <Button
+        android:id="@+id/btnPickImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选图翻译（截图 / 文章图片）" />
+
+    <Button
+        android:id="@+id/btnSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="百度翻译设置（自己填 APP ID 和密钥）" />
+
+    <Button
+        android:id="@+id/btnSubtitleMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="语音字幕说明" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="请按 1、2、3 顺序授权，再点启动悬浮窗。" />
+</LinearLayout>
