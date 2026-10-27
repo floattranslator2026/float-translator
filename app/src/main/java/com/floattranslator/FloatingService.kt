@@ -6,6 +6,8 @@ import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.ComponentName
+import android.provider.Settings
 import android.graphics.Bitmap
 import android.graphics.PixelFormat
 import android.hardware.display.DisplayManager
@@ -94,6 +96,14 @@ class FloatingService : Service() {
         
         }
         root.findViewById<Button>(R.id.btnTranslateAccessibility).setOnClickListener {
+            val enabledServices = Settings.Secure.getString(contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES).orEmpty()
+            val readingService = ComponentName(this, ReadingAccessibilityService::class.java).flattenToString()
+            if (!enabledServices.split(":").contains(readingService)) {
+                tvStatus.text = "在列表里找到悬浮翻译，打开开关，回来再点读屏翻译"
+                Toast.makeText(this, "在列表里找到悬浮翻译，打开开关，回来再点读屏翻译", Toast.LENGTH_LONG).show()
+                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                return@setOnClickListener
+            }
             val accText = AccessibilityTextHolder.latestText.trim()
             if (accText.isEmpty()) {
                 tvStatus.text = "无障碍还没读到当前页文字：请先在主界面开无障碍，再回到文章页等几秒"
