@@ -1,93 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:fillViewport="true">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="百度翻译设置"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="在百度翻译开放平台申请 APP ID 和密钥后，在此填写。密钥只存在这台手机上，不要发给 Muse、不要贴到聊天里、不要写进代码。App 在本地按百度文档做 MD5 签名调用。" />
-
-    <TextView
-        android:id="@+id/tvHint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textColor="#FFEB3B" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="翻译源（百度为主、谷歌为辅，默认百度）"
-        android:textStyle="bold" />
-
-    <RadioGroup
-        android:id="@+id/rgSource"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RadioButton
-            android:id="@+id/rbBaidu"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="百度（主）" />
+            android:text="百度翻译设置"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-        <RadioButton
-            android:id="@+id/rbGoogle"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="谷歌（辅）" />
-    </RadioGroup>
+            android:layout_marginTop="8dp"
+            android:text="在百度翻译开放平台申请 APP ID 和密钥后，在此填写。密钥只存在这台手机上，不要发给 Muse、不要贴到聊天里、不要写进代码。App 在本地按百度文档做 MD5 签名调用。" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="谷歌说明：用免密钥公开端点，不硬编码任何谷歌密钥。谷歌在国内可能无法直连或很慢，失败时自动回落到百度（若已填密钥）或本机离线翻译。长英文文章（200 字以上）翻译时还会额外显示一次谷歌对照结果，方便对照。" />
+        <TextView
+            android:id="@+id/tvHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="#FFEB3B" />
 
-    <EditText
-        android:id="@+id/etAppId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="APP ID"
-        android:inputType="text" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="翻译源（百度为主、谷歌为辅，默认百度）"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/etSecret"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="密钥（密码框，不明文显示）"
-        android:inputType="textPassword" />
+        <RadioGroup
+            android:id="@+id/rgSource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="保存到本机" />
+            <RadioButton
+                android:id="@+id/rbBaidu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="百度（主）" />
 
-    <Button
-        android:id="@+id/btnClear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="清除本机密钥" />
+            <RadioButton
+                android:id="@+id/rbGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="谷歌（辅）" />
+        </RadioGroup>
 
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="返回" />
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="谷歌说明：用免密钥公开端点，不硬编码任何谷歌密钥。谷歌在国内可能无法直连或很慢，失败时自动回落到百度（若已填密钥）或本机离线翻译。长英文文章（200 字以上）翻译时还会额外显示一次谷歌对照结果，方便对照。" />
+
+        <EditText
+            android:id="@+id/etAppId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="APP ID"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/etSecret"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="密钥（密码框，不明文显示）"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="保存到本机" />
+
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="清除本机密钥" />
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="返回" />
+    </LinearLayout>
+</ScrollView>
