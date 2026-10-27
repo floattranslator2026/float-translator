@@ -20,7 +20,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions
+import com.google.mlkit.nl.translate.TranslateLanguage
+import com.google.mlkit.nl.translate.TranslatorOptions
+import com.google.mlkit.nl.translate.Translation
 import java.io.InputStream
 
 /**
@@ -76,6 +79,12 @@ class MainActivity : AppCompatActivity() {
                 1001
             )
         }
+        findViewById<Button>(R.id.btnAccessibilityPermission).setOnClickListener { startActivity(Intent(Settings.ACTION_ACCESS_SETTINGS)) }
+        Translation.getClient(TranslatorOptions.Builder().setSourceLanguage(TranslateLanguage.ENGLISH).setTargetLanguage(TranslateLanguage.CHINESE).build()).downloadModelIfNeeded()
+        .addOnSuccessListener {
+            Translation.getClient(TranslatorOptions.Builder().setSourceLanguage(TranslateLanguage.CHINESE).setTargetLanguage(TranslateLanguage.ENGLISH).build()).downloadModelIfNeeded()
+            .addOnSuccessListener { tvStatus.text = "本机翻译模型已就绪" } .addOnFailureListener { tvStatus.text = "本机模型下载失败：国内谷歌服务可能不可用，请用无障碍读屏或填百度密钥" }
+        }.addOnFailureListener { tvStatus.text = "本机模型下载失败：国内谷歌服务可能不可用，请用无障碍读屏或填百度密钥" }
         findViewById<Button>(R.id.btnStartFloat).setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
                 Toast.makeText(this, "请先授权悬浮窗", Toast.LENGTH_SHORT).show()
@@ -116,7 +125,7 @@ class MainActivity : AppCompatActivity() {
             tvStatus.text = "图片读取失败"
             return
         }
-        val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+        val recognizer = TextRecognition.getClient(ChineseTextRecognizerOptions.Builder().build())
         recognizer.process(InputImage.fromBitmap(bitmap, 0))
             .addOnSuccessListener { visionText ->
                 val text = visionText.text.trim()
