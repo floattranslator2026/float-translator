@@ -12,7 +12,6 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
       - uses: gradle/gradle-build-action@v3
         with:
           arguments: assembleDebug --no-daemon
