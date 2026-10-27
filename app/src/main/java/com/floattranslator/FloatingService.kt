@@ -26,7 +26,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions
 
 /**
  * 悬浮窗服务：始终置顶、可拖动、可收起。
@@ -91,6 +91,26 @@ class FloatingService : Service() {
 
         root.findViewById<Button>(R.id.btnTranslateScreen).setOnClickListener {
             captureAndTranslate()
+        
+        }
+        root.findViewById<Button>(R.id.btnTranslateAccessibility).setOnClickListener {
+            val accText = AccessibilityTextHolder.latestText.trim()
+            if (accText.isEmpty()) {
+                tvStatus.text = "无障碍还没读到当前页文字：请先在主界面开无障碍，再回到文章页等几秒"
+                Toast.makeText(this, "无障碍还没读到当前页文字：请先在主界面开无障碍，再回到文章页等几秒", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            tvOriginal.text = "原文：$accText"
+            tvStatus.text = "正在翻译…"
+            TranslatorEngine.translateAuto(
+                this,
+                accText,
+                onResult = { translated, direction ->
+                    tvTranslated.text = "译文：$translated"
+                    tvStatus.text = if (direction == TranslatorEngine.Direction.EN_TO_ZH) "英文 → 中文（无障碍读屏）" else "中文 → 英文（无障碍读屏）"
+                },
+                onError = { tvStatus.text = "翻译失败：${it.message}，请检查网络或在设置页填百度密钥" }
+                )
         }
         root.findViewById<Button>(R.id.btnSubtitle).setOnClickListener {
             toggleSubtitle(it as Button)
@@ -274,7 +294,7 @@ class FloatingService : Service() {
 
     private fun ocrAndTranslate(bitmap: Bitmap) {
         tvStatus.text = "正在识别文字…"
-        val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+        val recognizer = TextRecognition.getClient(ChineseTextRecognizerOptions.Builder().build())
         recognizer.process(InputImage.fromBitmap(bitmap, 0))
             .addOnSuccessListener { visionText ->
                 val text = visionText.text.trim()
@@ -300,7 +320,7 @@ class FloatingService : Service() {
                             }
                         }
                     },
-                    onError = { tvStatus.text = "翻译失败：${it.message}（首次需联网下载模型）" }
+                    onError = { tvStatus.text = "翻译失败：${it.message}，谷歌不通或本机模型未下载，请试无障碍读屏或填百度密钥" }
                 )
             }
             .addOnFailureListener { tvStatus.text = "识别失败：${it.message}" }
