@@ -40,7 +40,7 @@
         android:id="@+id/btnAccessibilityPermission"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="4. 开无障碍（读屏翻译用，可选但推荐）" />
+        android:text="一键开无障碍（点一下直达系统设置）" />
 
     <Button
         android:id="@+id/btnStartFloat"
