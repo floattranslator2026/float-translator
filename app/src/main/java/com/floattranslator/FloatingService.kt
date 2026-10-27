@@ -221,9 +221,15 @@ class FloatingService : Service() {
         val density = metrics.densityDpi
 
         val projectionManager = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
-        mediaProjection = projectionManager.getMediaProjection(
-            ScreenCaptureHolder.resultCode, ScreenCaptureHolder.data!!
-        )
+        try {
+            mediaProjection = projectionManager.getMediaProjection(
+                ScreenCaptureHolder.resultCode, ScreenCaptureHolder.data!!
+            )
+        } catch (e: Exception) {
+            tvStatus.text = "录屏授权已失效，请回主界面重新点授权录屏"
+            Toast.makeText(this, "录屏授权已失效，请回主界面重新点授权录屏", Toast.LENGTH_LONG).show()
+            return
+        }
         imageReader = ImageReader.newInstance(width, height, PixelFormat.RGBA_8888, 2)
         virtualDisplay = mediaProjection?.createVirtualDisplay(
             "float-translator", width, height, density,
